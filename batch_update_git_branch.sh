@@ -1,22 +1,22 @@
 #!/bin/bash
 
 function process_directory() {
-    local directory="$1"
-    local subdirectories=($(ls "$directory"))
-
-    for subdirectory in "${subdirectories[@]}"; do
-        local full_path="$directory/$subdirectory"
-
-        if [ -d "$full_path" ]; then
-            (
-                cd "$full_path"
-                pwd
-                git -c credential.helper= -c core.quotepath=false -c log.showSignature=false checkout -B release origin/release --
-                git -c credential.helper= -c core.quotepath=false -c log.showSignature=false fetch origin --recurse-submodules=no --progress --prune
-		git -c credential.helper= -c core.quotepath=false -c log.showSignature=false merge origin/release --no-stat -v
-            ) &
-        fi
-    done
+	local directory="$1"
+	local subdirectories=($(ls "$directory"))
+	
+	for subdirectory in "${subdirectories[@]}"; do
+	local full_path="$directory/$subdirectory"
+	
+	if [ -d "$full_path" ]; then
+		(
+			cd "$full_path"
+			pwd
+			git -c credential.helper= -c core.quotepath=false -c log.showSignature=false checkout -B release origin/release --
+			git -c credential.helper= -c core.quotepath=false -c log.showSignature=false fetch origin --recurse-submodules=no --progress --prune
+			git -c credential.helper= -c core.quotepath=false -c log.showSignature=false merge origin/release --no-stat -v
+		) &
+	fi
+	done
 }
 
 process_directory "./"
