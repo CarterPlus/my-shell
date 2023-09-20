@@ -13,7 +13,7 @@ function process_directory() {
                 pwd
                 git -c credential.helper= -c core.quotepath=false -c log.showSignature=false checkout -B release origin/release --
                 git -c credential.helper= -c core.quotepath=false -c log.showSignature=false fetch origin --recurse-submodules=no --progress --prune
-				git -c credential.helper= -c core.quotepath=false -c log.showSignature=false merge origin/release --no-stat -v
+		git -c credential.helper= -c core.quotepath=false -c log.showSignature=false merge origin/release --no-stat -v
             ) &
         fi
     done
